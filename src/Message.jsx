@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 
 class Message extends Component {
 
-  render () {
+  render() {
     const {type, content, username} = this.props.message
     
     const system = type === 'incomingNotification' ? 'system' : ''
