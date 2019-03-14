@@ -1,19 +1,39 @@
-import React, {Component} from 'react'
+import React from 'react'
 
-class Message extends Component {
+function Message (props) {
+  
+  const handleMessage = () => {
+    const {type, content, username} = props.message
 
-  render() {
-    const {type, content, username} = this.props.message
-    
-    const system = type === 'incomingNotification' ? 'system' : ''
-
-    return (
-      <div className={'message ' + system}>
-        <span className="message-username">{username}</span>
-        <span className="message-content">{content}</span>
-      </div>
-    )
+    switch(type) {
+      case('incomingMessage'):
+        return (
+          <span className="message-content" style={{color:'blue'}}>
+            {content}
+          </span>
+        )
+      case('incomingNotification'):
+          return (
+            <span className="message-content" style={{color:'red'}}>
+              {content}
+            </span>
+          )
+      default: 
+        return (
+          <span className="message-content">
+            {content}
+          </span>
+        );
+    }
   }
+
+  return (
+    <div className={'message'}>
+      <span className="message-username">{props.message.username}</span>
+      {handleMessage()}
+    </div>
+  )
+  
 }
 
 export default Message

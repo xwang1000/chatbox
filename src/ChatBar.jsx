@@ -1,31 +1,48 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 
-class ChatBar extends Component {
+function ChatBar (props) {
+  const [username, setUsername] = useState('Bob')
 
-  handleKeyPress = (event) => {
+  const handleNameKeyPress = (event) => {
+    const name = event.target.value
+    if (event.key === 'Enter' && name) {
+      props.changeName(name)
+    }
+    
+  }
+
+  const handleKeyPress = (event) => {
 
     const content = event.target
-    if(event.key === 'Enter' && content.value){
-      this.props.sendMessage(content.value)
+    
+    if (event.key === 'Enter' && content.value){
+      const newMessage = {
+        type: 'postMessage',
+        username, 
+        content: content.value
+      }
+   
+      props.sendMessage(newMessage)
+
       content.value = ''
     }
   }
 
-  render() {
-    return (
-      <footer className="chatbar">
-        <input 
-          className="chatbar-username" 
-          placeholder="Your Name (Optional)" 
-          defaultValue={this.props.currentUser.name}
-        />
-        <input
-          className="chatbar-message" 
-          placeholder="Type a message and hit ENTER" 
-          onKeyPress={this.handleKeyPress}
-        />
-      </footer>
-    )
-  }
+  return (
+    <footer className="chatbar">
+      <input 
+        className="chatbar-username" 
+        placeholder="Your Name (Optional)" 
+        defaultValue={props.currentUser}
+        onChange={() => setUsername(event.target.value)}
+        onKeyPress={handleNameKeyPress}
+      />
+      <input
+        className="chatbar-message" 
+        placeholder="Type a message and hit ENTER" 
+        onKeyPress={handleKeyPress}
+      />
+    </footer>
+  )
 }
 export default ChatBar

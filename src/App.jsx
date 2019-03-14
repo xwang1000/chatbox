@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import NavBar from './NavBar.jsx'
 import MessageList from './MessageList.jsx'
 import ChatBar from './ChatBar.jsx'
-import {data} from '../data.js'
 
 class App extends Component {
 
@@ -10,36 +9,44 @@ class App extends Component {
     super(props)
     this.state = {
       loading: false,
-      messages: data.messages
+      currentUser: 'Bob',
+      messages: [],
+      socket: new WebSocket('ws://localhost:3001')
     }
   }
 
   componentDidMount() {
     console.log("componentDidMount <App />");
+    
+    const socket = this.state.socket
+    socket.onopen = () => {
+      console.log('opened connection')
+  
+      socket.onmessage = (message) => {
+        const {data} = message
+        const newMessage = JSON.parse(data)
 
-    setTimeout(() => {
-      console.log("Simulating incoming message");
-
-      // Add a new message to the list of messages in the data store
-      const newMessage = {id: 3, username: "Michelle", content: "Hello there!"};
-
-      // Update the state of the app component.
-      // Calling setState will trigger a call to render() in App and all child components.
-      this.setState({
-        loading: false,
-        messages: [...this.state.messages, newMessage]
-      })
-    }, 3000);
+        this.setState({
+          messages: [...this.state.messages, newMessage]
+        })
+      }
+    }
   }
 
-  sendMessage = (content) => {
-    const newMessage = {
-      username: data.currentUser.name,
-      content
+  changeName = (newName) => {
+    if (newName !== this.state.currentUser) {
+      const message = {
+        type: 'postNotification',
+        content: `${this.state.currentUser} changed his name to ${newName}`
+      }
+      this.state.socket.send(JSON.stringify(message))
     }
-    this.setState({
-      messages: [...this.state.messages, newMessage]
-    })
+  }
+
+
+  sendMessage = (newMessage) => {
+
+    this.state.socket.send(JSON.stringify(newMessage))
   }
 
   render() {
@@ -52,7 +59,7 @@ class App extends Component {
       <div className="app">
         <NavBar />
         <MessageList messages={this.state.messages} />
-        <ChatBar currentUser={data.currentUser} sendMessage={this.sendMessage} />
+        <ChatBar currentUser={this.state.currentUser} sendMessage={this.sendMessage} changeName={this.changeName} />
       </div>
     );
   }
