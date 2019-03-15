@@ -11,41 +11,66 @@ class App extends Component {
       loading: false,
       currentUser: 'Bob',
       messages: [],
-      socket: new WebSocket('ws://localhost:3001')
+      socket: new WebSocket('ws://localhost:3001'),
+      numberOnline: 0
     }
+  }
+
+  updateConnectionUser (user = this.state.currentUser, changedName = false) {
+    const message = {
+      type: 'currentUser',
+      content: user,
+      changedName
+    }
+
+    this.state.socket.send(JSON.stringify(message))
   }
 
   componentDidMount() {
     console.log("componentDidMount <App />");
     
     const socket = this.state.socket
+
     socket.onopen = () => {
       console.log('opened connection')
+
+      // Send current user name
+      this.updateConnectionUser()
   
       socket.onmessage = (message) => {
         const {data} = message
         const newMessage = JSON.parse(data)
 
-        this.setState({
-          messages: [...this.state.messages, newMessage]
-        })
+        switch (newMessage.type) {
+          case('clientNumber'): 
+            this.setState({numberOnline: newMessage.clientsConnected})
+            break
+            return
+          default:
+            this.setState({
+              messages: [...this.state.messages, newMessage]
+            })
+            break
+        }
+
       }
     }
   }
 
   changeName = (newName) => {
+
     if (newName !== this.state.currentUser) {
       const message = {
         type: 'postNotification',
         content: `${this.state.currentUser} changed his name to ${newName}`
       }
       this.state.socket.send(JSON.stringify(message))
+      this.updateConnectionUser(newName, true)
     }
+
   }
 
-
   sendMessage = (newMessage) => {
-
     this.state.socket.send(JSON.stringify(newMessage))
   }
 
@@ -57,7 +82,7 @@ class App extends Component {
 
     return (
       <div className="app">
-        <NavBar />
+        <NavBar numberOnline={this.state.numberOnline} />
         <MessageList messages={this.state.messages} />
         <ChatBar currentUser={this.state.currentUser} sendMessage={this.sendMessage} changeName={this.changeName} />
       </div>

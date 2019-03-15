@@ -3,18 +3,35 @@ import React from 'react'
 function Message (props) {
   
   const handleMessage = () => {
-    const {type, content, username} = props.message
+    const {type, content, username, color} = props.message
+
+    const nameStyle = {
+      color: color, 
+      opacity: '.4'
+    }
+
+    const contentStyle = {
+      color: color,
+      opacity: '1'
+    }
+
+    const notificationStyle = {
+      color: 'grey',
+      fontStyle: 'italic'
+    }
 
     switch(type) {
       case('incomingMessage'):
         return (
-          <span className="message-content" style={{color:'blue'}}>
-            {content}
-          </span>
+          <React.Fragment>
+            <span className="message-username" style={nameStyle}>{username}</span>
+            <span className="message-content" style={contentStyle}>{content}</span>
+          </React.Fragment>
         )
+
       case('incomingNotification'):
           return (
-            <span className="message-content" style={{color:'red'}}>
+            <span className="message-content" style={notificationStyle}>
               {content}
             </span>
           )
@@ -29,7 +46,6 @@ function Message (props) {
 
   return (
     <div className={'message'}>
-      <span className="message-username">{props.message.username}</span>
       {handleMessage()}
     </div>
   )
