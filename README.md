@@ -5,8 +5,15 @@ ChatBox is a single page application that allows users to communicate with each 
 You need an api key in the secret file. 
 
 ## Final product
-- creating a post
-!["Screenshot of Creating a post"](./docs/posting.png)
+- chatting with anonymouse user with giphy
+!["Screenshot of chatting with anonymous user"](./docs/chatting.png)
+
+- updates the number of online users and notifies everyone when other user logs in or logs out
+!["Screenshot of user number and login notification"](./docs/user-leaving.png)
+
+- only one user left
+!["Screenshot of user number and login notification"](./docs/lonely-user.png)
+
 
 ## Getting Started
 1. Clone this repository 
