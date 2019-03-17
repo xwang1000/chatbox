@@ -10,23 +10,24 @@ body {
 }
 
 h1 {
-  color: tomato;
+  color: #F1A66A;
 }
 
 .chatbar {
-  background: tomato;
-  border-top: 1px solid black;
+  background: #7EA172;
+  border: none;
   bottom: 0;
   display: flex;
   left: 0;
   padding: 5px;
+  padding-bottom: 10px;
   position: fixed;
   right: 0;
 }
 
 .chatbar-message,
 .chatbar-username {
-  border: 1px solid black;
+  border: none;
   display: block;
   height: 40px;
   line-height: 40px;
@@ -69,14 +70,16 @@ h1 {
 }
 
 .navbar {
-  background: tomato;
-  border-bottom: 1px solid black;
+  background: #7EA172;
+  color: white;
   height: 60px;
   left: 0;
   padding: 0 10px;
   position: fixed;
   right: 0;
   top: 0;
+  vertical-align: middle;
+  z-index: 2;
 }
 
 .navbar-brand {
@@ -89,4 +92,11 @@ h1 {
   line-height: 60px;
   padding: 0 10px;
   text-decoration: none;
+}
+
+.navbar-count {
+  text-align: right;
+  margin-right: 10px;
+  font-size: 1.1rem;
+  opacity: .7;
 }

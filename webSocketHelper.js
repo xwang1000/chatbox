@@ -19,13 +19,17 @@ module.exports = function (wss, WebSocket) {
     broadcast(data)
   }
 
+  // Send a notification about user login info
   const updateUser = (user, login, ws, changedName) => {
     const data = {
-      type: 'incomingNotification',
-      content: user + (login ? ' joined the conversation' : ' left the conversation')
+      type: 'incomingNotification'
     }
 
-    !changedName && broadcast(data, false, ws)
+
+    if (!changedName) {
+      data.content = user + (login ? ' joined the conversation' : ' left the conversation')
+      return broadcast(data, false, ws)
+    } 
   }
 
 

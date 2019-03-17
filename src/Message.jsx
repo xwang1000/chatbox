@@ -7,7 +7,7 @@ function Message (props) {
 
     const nameStyle = {
       color: color, 
-      opacity: '.4'
+      opacity: '.5'
     }
 
     const contentStyle = {
@@ -24,8 +24,8 @@ function Message (props) {
       case('incomingMessage'):
         return (
           <React.Fragment>
-            <span className="message-username" style={nameStyle}>{username}</span>
-            <span className="message-content" style={contentStyle}>{content}</span>
+            <p className="message-username" style={nameStyle}>{username}</p>
+            <p className="message-content" style={contentStyle}>{content}</p>
           </React.Fragment>
         )
 
@@ -34,6 +34,15 @@ function Message (props) {
             <span className="message-content" style={notificationStyle}>
               {content}
             </span>
+          )
+      case('incomingGif'): 
+          return (
+            <React.Fragment>
+              <p className="message-username" style={nameStyle}>{username}</p>
+              <span className="message-content">
+                <img src={content} alt="gif" style={{height: '250px'}} />
+              </span>
+            </React.Fragment>
           )
       default: 
         return (

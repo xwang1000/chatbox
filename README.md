@@ -1,6 +1,6 @@
 React Boilerplate
 =====================
-
+You need an api key in the secret file. 
 A minimal and light dev environment for ReactJS.
 
 ### Usage

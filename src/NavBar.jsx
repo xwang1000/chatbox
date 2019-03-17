@@ -8,8 +8,8 @@ function NavBar (props) {
   
   return (
     <nav className="navbar">
-      <a href="/" className="navbar-brand">Chatty</a>
-      <p style={{textAlign:'right'}} >{number} {users} online</p>
+      <a href="/" className="navbar-brand">ChatBox</a>
+      <p className="navbar-count">{number} {users} online</p>
     </nav>
   )
 }

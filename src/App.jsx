@@ -9,7 +9,7 @@ class App extends Component {
     super(props)
     this.state = {
       loading: false,
-      currentUser: 'Bob',
+      currentUser: '',
       messages: [],
       socket: new WebSocket('ws://localhost:3001'),
       numberOnline: 0
@@ -38,6 +38,8 @@ class App extends Component {
       this.updateConnectionUser()
   
       socket.onmessage = (message) => {
+        // document.querySelector(".messages").scrollIntoView(false)
+        // window.scrollTo(0, document.querySelector(".messages").scrollHeight)
         const {data} = message
         const newMessage = JSON.parse(data)
 
@@ -64,8 +66,10 @@ class App extends Component {
         type: 'postNotification',
         content: `${this.state.currentUser} changed his name to ${newName}`
       }
+      
       this.state.socket.send(JSON.stringify(message))
       this.updateConnectionUser(newName, true)
+      this.setState({currentUser: newName})
     }
 
   }
