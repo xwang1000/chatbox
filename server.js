@@ -63,7 +63,7 @@ let anonymouseUserCount = 1
 wss.on('connection', (ws) => {
 
   console.log('Client connected');
-  // Update and broadcast everytime a connection is established
+  // Update and broadcast everytime a connection is established (a user is online)
   updateClientNumber()
 
   // Attach the unique setup to this particular connection
@@ -99,7 +99,6 @@ wss.on('connection', (ws) => {
     } else {
 
       // Handle other types
-
       newMessage.id = uuidv1()
       switch(type) {
         case('postMessage'): 

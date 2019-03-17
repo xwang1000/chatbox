@@ -64,7 +64,7 @@ class App extends Component {
     if (newName !== this.state.currentUser) {
       const message = {
         type: 'postNotification',
-        content: `${this.state.currentUser} changed his name to ${newName}`
+        content: `${this.state.currentUser || 'Anonymous'} changed his name to ${newName}`
       }
       
       this.state.socket.send(JSON.stringify(message))
