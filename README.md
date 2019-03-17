@@ -1,45 +1,41 @@
-React Boilerplate
-=====================
+# ChatBox
+
+ChatBox is a single page application that allows users to communicate with each other without having to register accounts. Users can also send giphys with Domain Specific Command `\giphy` or `\gif`. For example, `\gif pokemon` or `\giphy puppies`
+
 You need an api key in the secret file. 
-A minimal and light dev environment for ReactJS.
 
-### Usage
+## Final product
+- creating a post
+!["Screenshot of Creating a post"](./docs/posting.png)
 
-Clone the boilerplate and create your own git repo.
+## Getting Started
+1. Clone this repository 
+2. Install dependencies `npm i`
+3. Create a `secrets.js` in the root with the giphy api key: 
+```javascript
+// secrets.js
 
-```
-git clone git@github.com:lighthouse-labs/react-simple-boilerplate.git
-cd react-simple-boilerplate
-git remote rm origin
-git remote add origin [YOUR NEW REPOSITORY]
-# Manually update your package.json file
-```
-
-Install the dependencies and start the server.
-
-```
-npm install
-npm start
-open http://localhost:3000
-```
-
-### Static Files
-
-You can store static files like images, fonts, etc in the `build` folder.
-
-For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
-
-### Linting
-
-This boilerplate project includes React ESLint configuration.
+module.exports = {
+  GIPHY_API_KEY: [YOUR_OWN_GIPHY_API_KEY]
+}
 
 ```
-npm run lint
-```
+
+Generate your own giphy api key from: https://developers.giphy.com/
+
+4. Run the server `npm start`
+5. Visit `http:localhost:3000`
+
 
 ### Dependencies
 
+
 * React
+* React Dom
 * Webpack
 * [babel-loader](https://github.com/babel/babel-loader)
 * [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+* Axios
+* Express
+* uuid
+* ws
